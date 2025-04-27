@@ -2,7 +2,7 @@ Package: bfett.shiny
 Type: Package
 Title: Finance Functions
 Version: 0.0.1
-Date: 2025-04-20
+Date: 2025-04-27
 Author: Karsten Weinert
 Maintainer: Karsten Weinert <karsten.g.weinert@gmail.com>
 Description: Useful functions for managing a portfolio. 
