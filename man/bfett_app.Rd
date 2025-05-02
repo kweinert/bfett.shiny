@@ -13,5 +13,9 @@ bfett_app(con = NULL)
 shinyApp object
 }
 \description{
-bfett app
+Prompt: Please write an R Shiny app as follows. Use the `bslib` package, specifically `bslib::page_navbar`.
+Add a `nav_panel` titled "Overview". This should display a plotly output `overview_barchart` and a table `overview_tbl`.
+A second `nav_panel` titled "Active Positions" should include a toggle "since last week / since purchase", a dynamic heading, 
+a plotly output `apos_treemap`, and a table `apos_tbl`.
+On the right side, a menu should be displayed with the entries "nert" and "elvis".
 }
