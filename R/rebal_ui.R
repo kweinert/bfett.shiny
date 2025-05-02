@@ -4,8 +4,6 @@ rebal_ui <- function(id, con) {
 
 	bslib::nav_panel(
 		title = "Rebalancing",
-		bslib::card(
-			reactable::reactableOutput(ns("tbl"))
-		)
+		reactable::reactableOutput(ns("tbl"))
 	)
 }
