@@ -1,4 +1,11 @@
-
+#' Calculate the value of a portfolio
+#'
+#' This function computes the total value of a given portfolio based on the provided database connection.
+#'
+#' @param con Database connection object.
+#' @param portfolio Character string specifying the portfolio identifier.
+#' @return data.frame with columns calendar_week, typ ("activepos", "cash"), and value
+#' @export
 val_pfoliovalue <- function(con, portfolio) {
 	stmt <- paste0(
 	    "WITH the_kw AS (

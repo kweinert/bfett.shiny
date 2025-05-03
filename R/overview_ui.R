@@ -1,3 +1,9 @@
+#' Overview UI Module
+#'
+#' This function generates the user interface for the overview module in a Shiny application.
+#'
+#' @param id The unique identifier for the module namespace.
+#' @return A Shiny UI element.
 #' @export
 overview_ui <- function(id) {
 	ns <- shiny::NS(id)

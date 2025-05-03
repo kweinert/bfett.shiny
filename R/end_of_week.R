@@ -1,5 +1,12 @@
-
-# Funktion zur Berechnung des Freitags oder aktuellen Datums
+#' End of Week Date
+#'
+#' Computes the date corresponding to the friday of the specified ISO week.
+#'
+#' @param iso_week Character or numeric vector specifying the ISO week in the format "YYYY-WW" (e.g., "2023-01") or as a week number (1-53).
+#' @param clip_today Logical indicating whether to clip the result to today's date if the end of the week is in the future. Default is TRUE.
+#'
+#' @return A Date vector representing the last day (Friday) of the specified ISO week.
+#' @export
 end_of_week <- function(iso_week, clip_today=TRUE) {
   year <- as.integer(sub("-.*", "", iso_week))
   week <- as.integer(sub(".*-", "", iso_week))

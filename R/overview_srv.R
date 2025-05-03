@@ -1,3 +1,10 @@
+#' Server Logic for Overview Module
+#'
+#' @param id Module ID.
+#' @param r Reactive values object for shared data.
+#' @param verbose Logical, whether to print verbose output. Defaults to FALSE.
+#'
+#' @return None. Handles server-side logic for the overview module.
 #' @export
 overview_srv <- function(id, r, verbose=FALSE) 
   shiny::moduleServer(id=id, function(input, output, session) {

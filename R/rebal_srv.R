@@ -1,3 +1,12 @@
+#' Rebalancing Server Module
+#'
+#' @description Server logic for the rebalancing Shiny module.
+#'
+#' @param id Character string specifying the module ID.
+#' @param r Reactive values object for module communication.
+#' @param verbose Logical indicating whether to enable verbose logging (default: FALSE).
+#'
+#' @return A Shiny module server function.
 #' @export
 rebal_srv <- function(id, r, verbose=FALSE) 
 	shiny::moduleServer(id=id, function(input, output, session) {
@@ -11,7 +20,7 @@ rebal_srv <- function(id, r, verbose=FALSE)
 		shiny::req(curr_value())
 		DBI::dbReadTable(r$con, "active_positions_weekly") |>
 			subset(calendar_week==max(calendar_week) & portfolio==r$portfolio, c(isin, name, category, close_value)) |>
-			aggregate(close_value ~ isin+name+category, data=_, FUN=sum) |>
+			stats::aggregate(close_value ~ isin+name+category, data=_, FUN=sum) |>
 			transform(curr_share = close_value / curr_value())
 	})
 	
@@ -19,7 +28,7 @@ rebal_srv <- function(id, r, verbose=FALSE)
 		shiny::req(curr_value())
 		shiny::req(apos())
 		DBI::dbReadTable(r$con, "ideas") |>
-			merge(aggregate(curr_share ~ category, data=apos(), FUN=sum), by="category", all=TRUE)
+			merge(stats::aggregate(curr_share ~ category, data=apos(), FUN=sum), by="category", all=TRUE)
 	})
 
 	output$tbl <- reactable::renderReactable({

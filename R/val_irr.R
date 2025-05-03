@@ -1,4 +1,16 @@
-
+#' Calculate the Internal Rate of Return (IRR) for a portfolio
+#'
+#' This function computes the Internal Rate of Return (IRR) based on cash flows
+#' from a portfolio. Handles deposits and withdrawals.
+#'
+#' It calculates numerically a daily rate and returns 360 times the rate.
+#'
+#' @param con Database connection object.
+#' @param portfolio Character string specifying the portfolio identifier.
+#' @param trans either NULL (default) or data.frame containing transaction data. If NULL, reads from the database.
+#' @param current_value either NULL (default) or data.frame containing the current value. If NULL, reads from the database.
+#' @return A numeric value representing the annualized IRR or NA if something went wrong.
+#' @export
 val_irr <- function(con, portfolio, trans=NULL, current_value=NULL) {
 	if(is.null(current_value)) current_value <- val_pfoliovalue(con, portfolio=portfolio)
 	
@@ -45,7 +57,7 @@ val_irr <- function(con, portfolio, trans=NULL, current_value=NULL) {
 				sum(this_month[["amount"]]) # cashflow
 		}
 		# last month may not have ended
-		last_month <- subset(trans, strftime(date, "%Y-%m")==tail(all_months,1)) |>
+		last_month <- subset(trans, strftime(date, "%Y-%m")==utils::tail(all_months,1)) |>
 			transform(days = as.numeric(current_date - date + 1))
 		i <- length(val)
 		val[i] <- if(i>1) val[i-1] else 0 # previous month
@@ -56,7 +68,7 @@ val_irr <- function(con, portfolio, trans=NULL, current_value=NULL) {
 		return(val[i] - current_value)
 	}
 
-    irr <- try(uniroot(value_fun, interval = c(-0.25, 0.25), check.conv=TRUE), silent=TRUE)
+    irr <- try(stats::uniroot(value_fun, interval = c(-0.25, 0.25), check.conv=TRUE), silent=TRUE)
 
     # Nominal-Zins
     if(inherits(irr, "try-error")) NA else irr$root*360 # (1 + irr$root)^12 - 1

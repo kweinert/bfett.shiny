@@ -1,3 +1,12 @@
+#' Treemap Server Module
+#'
+#' @description Server logic for the treemap Shiny module.
+#'
+#' @param id Character string specifying the module's namespace ID.
+#' @param r Reactive values object for sharing data within the module.
+#' @param verbose Logical indicating whether to enable verbose output. Defaults to FALSE.
+#'
+#' @return None. Handles server-side logic for the treemap module.
 #' @export
 treemap_srv <- function(id, r, verbose=FALSE) 
 	shiny::moduleServer(id=id, function(input, output, session) {
