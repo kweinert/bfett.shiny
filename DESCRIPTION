@@ -1,8 +1,8 @@
 Package: bfett.shiny
 Type: Package
 Title: Finance Functions
-Version: 0.1.0
-Date: 2025-05-02
+Version: 0.1.1
+Date: 2025-05-03
 Author: Karsten Weinert
 Maintainer: Karsten Weinert <karsten.g.weinert@gmail.com>
 Description: Useful functions for managing a portfolio. 
@@ -11,8 +11,8 @@ Description: Useful functions for managing a portfolio.
 License: file LICENSE
 Depends: R (>= 4.1.0)
 Imports:
-    shiny, bslib, colorspace, data.table, duckdb, reactable
+    shiny, bslib, colorspace, data.table, duckdb, reactable, plotly
 Suggests:
-	plotly, tinytest
+	tinytest
 LazyLoad: yes
 RoxygenNote: 7.3.2

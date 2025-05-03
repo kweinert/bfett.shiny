@@ -24,9 +24,12 @@ treemap_srv <- function(id, r, verbose=FALSE)
 	
 	curr_apos <- shiny::reactive({
 		shiny::req(apos())
-		subset(apos(), calendar_week==the_kw()) |>
-		transform(prct_chg_week = close_value / previous_close_value - 1) |> 
-		transform(prct_chg_buy = close_value / buy_in - 1) 
+		dat <- apos()
+		data.table::setDT(dat)
+		dat[calendar_week==the_kw()] |>
+		_[, .(size=sum(size), buy_in=sum(buy_in), close_value=sum(close_value), previous_close_value=sum(previous_close_value)), by=.(isin, name, category)] |>
+		_[, prct_chg_week := close_value / previous_close_value - 1] |>
+		_[, prct_chg_buy := close_value / buy_in - 1]
 	})
 	
 	output$title <- shiny::renderText({
