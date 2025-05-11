@@ -12,8 +12,7 @@
 #' @return A numeric value representing the annualized IRR or NA if something went wrong.
 #' @export
 val_irr <- function(con, portfolio, trans=NULL, current_value=NULL) {
-	if(is.null(current_value)) current_value <- val_pfoliovalue(con, portfolio=portfolio)
-	
+
 	if(is.null(trans)) {
 		stmt <- paste0(
 			"SELECT 
@@ -28,9 +27,23 @@ val_irr <- function(con, portfolio, trans=NULL, current_value=NULL) {
 		)
 		trans <- DBI::dbGetQuery(con, stmt)
 	}
+	stopifnot(
+		inherits(trans, "data.frame"),
+		"date" %in% colnames(trans),
+		inherits(trans[["date"]], "Date"),
+		"amount" %in% colnames(trans),
+		is.numeric(trans[["amount"]]),
+		"last_day_of_month" %in% colnames(trans),
+		inherits(trans[["last_day_of_month"]], "Date")
+	)
 	
 	if(is.null(current_value)) current_value <- val_pfoliovalue(con, portfolio=portfolio)
-	current_date <- end_of_week(current_value[1,"calender_week"], clip_today=TRUE)
+	stopifnot(
+		inherits(current_value, "data.frame"),
+		"calendar_week" %in% colnames(current_value),
+		"value" %in% colnames(current_value)
+	)
+	current_date <- end_of_week(current_value[1,"calendar_week"], clip_today=TRUE)
 	current_value <- sum(current_value[,"value"])
 	
 	all_months <- seq(min(trans[,"date"]), current_date, by="1 month") |> 
