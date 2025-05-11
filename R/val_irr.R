@@ -67,8 +67,8 @@ val_irr <- function(con, portfolio, trans=NULL, current_value=NULL) {
 			sum(last_month[["amount"]]) # cashflow
 		return(val[i] - current_value)
 	}
-
-    irr <- try(stats::uniroot(value_fun, interval = c(-0.25, 0.25), check.conv=TRUE), silent=TRUE)
+    
+    irr <- try(stats::uniroot(value_fun, interval = c(-0.01, 0.25), check.conv=TRUE), silent=TRUE)
 
     # Nominal-Zins
     if(inherits(irr, "try-error")) NA else irr$root*360 # (1 + irr$root)^12 - 1
