@@ -1,7 +1,7 @@
 Package: bfett.shiny
 Type: Package
 Title: Finance Functions
-Version: 0.1.4
+Version: 0.1.5
 Date: 2025-05-11
 Author: Karsten Weinert
 Maintainer: Karsten Weinert <karsten.g.weinert@gmail.com>

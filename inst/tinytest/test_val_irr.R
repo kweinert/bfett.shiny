@@ -46,4 +46,4 @@ curr_value <- data.frame(
 	value = 10617.74
 )
 ans <- val_irr(con=NULL, portfolio="nert", trans=trans, current_value=curr_value) 
-browser()
+
